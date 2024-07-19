@@ -12,6 +12,7 @@ export function isAuthenticated() {
 export function getCurrentOrg() {
   return cookies().get('org')?.value ?? null
 }
+
 export async function getCurrentMembership() {
   const org = getCurrentOrg()
 
