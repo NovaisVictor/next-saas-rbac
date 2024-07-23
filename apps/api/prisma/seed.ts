@@ -2,6 +2,8 @@ import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
+import { createSlug } from '../src/utils/create-slug'
+
 const prisma = new PrismaClient()
 
 async function seed() {
@@ -47,7 +49,7 @@ async function seed() {
           data: [
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -58,7 +60,7 @@ async function seed() {
             },
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -69,7 +71,7 @@ async function seed() {
             },
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -113,7 +115,7 @@ async function seed() {
           data: [
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -124,7 +126,7 @@ async function seed() {
             },
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -135,7 +137,7 @@ async function seed() {
             },
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -179,7 +181,7 @@ async function seed() {
           data: [
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -190,7 +192,7 @@ async function seed() {
             },
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
@@ -201,7 +203,7 @@ async function seed() {
             },
             {
               name: faker.lorem.words(5),
-              slug: faker.lorem.words(5),
+              slug: createSlug(faker.lorem.words(5)),
               description: faker.lorem.paragraph(),
               avatarUrl: faker.image.avatarGitHub(),
               ownerId: faker.helpers.arrayElement([
