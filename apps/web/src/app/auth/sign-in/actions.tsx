@@ -4,6 +4,7 @@ import { HTTPError } from 'ky'
 import { cookies } from 'next/headers'
 import { z } from 'zod'
 
+import { acceptInvite } from '@/http/accept-invite'
 import { sigInWithPassword } from '@/http/sign-in-with-password'
 const signInSchema = z.object({
   email: z
@@ -21,7 +22,6 @@ export async function signInWithEmailAndPassword(data: FormData) {
   }
   const { email, password } = result.data
 
-  // await new Promise((resolve) => setTimeout(resolve, 2000))
   try {
     const { token } = await sigInWithPassword({
       email,
@@ -31,6 +31,15 @@ export async function signInWithEmailAndPassword(data: FormData) {
       path: '/',
       maxAge: 60 * 60 * 24 * 7, // 7 days
     })
+    const inviteId = cookies().get('inviteId')?.value
+
+    if (inviteId) {
+      try {
+        await acceptInvite(inviteId)
+
+        cookies().delete('inviteId')
+      } catch {}
+    }
   } catch (err) {
     if (err instanceof HTTPError) {
       const { message } = await err.response.json()

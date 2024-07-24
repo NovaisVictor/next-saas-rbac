@@ -9,14 +9,26 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useFormState } from '@/hooks/use-form-state'
 
-import { createOrganizationAction } from './actions'
+import {
+  createOrganizationAction,
+  type OrganizationSchema,
+  updateOrganizationAction,
+} from './actions'
 
-export function OrganizationForm() {
-  // const router = useRouter()
+interface OrganizationFormProps {
+  isUpdating?: boolean
+  initialData?: OrganizationSchema
+}
 
-  const [{ success, message, errors }, handleSubmit, isPending] = useFormState(
-    createOrganizationAction,
-  )
+export function OrganizationForm({
+  isUpdating = false,
+  initialData,
+}: OrganizationFormProps) {
+  const formAction = isUpdating
+    ? updateOrganizationAction
+    : createOrganizationAction
+  const [{ success, message, errors }, handleSubmit, isPending] =
+    useFormState(formAction)
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {success === false && message && (
@@ -39,7 +51,12 @@ export function OrganizationForm() {
       )}
       <div className="space-y-1">
         <Label htmlFor="name">Organization name</Label>
-        <Input name="name" type="text" id="name" />
+        <Input
+          name="name"
+          type="text"
+          id="name"
+          defaultValue={initialData?.name}
+        />
         {errors?.name && (
           <p className="text-xs font-medium text-red-500 dark:text-red-400">
             {errors.name[0]}
@@ -54,6 +71,7 @@ export function OrganizationForm() {
           id="domain"
           inputMode="url"
           placeholder="exemple.com"
+          defaultValue={initialData?.domain ?? undefined}
         />
         {errors?.domain && (
           <p className="text-xs font-medium text-red-500 dark:text-red-400">
@@ -68,6 +86,7 @@ export function OrganizationForm() {
             name="shouldAttachUsersByDomain"
             id="shouldAttachUsersByDomain"
             className="mt-[0.285rem]"
+            defaultChecked={initialData?.shouldAttachUsersByDomain}
           />
           <div className="flex items-baseline space-x-2">
             <label htmlFor="shouldAttachUsersByDomain" className="space-y-1">

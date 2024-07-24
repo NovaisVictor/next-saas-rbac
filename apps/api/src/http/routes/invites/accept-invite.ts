@@ -27,6 +27,7 @@ export async function acceptInvite(app: FastifyInstance) {
       async (request, reply) => {
         const userId = await request.getCurrentUserId()
         const { inviteId } = request.params
+        console.log(userId)
 
         const invite = await prisma.invite.findUnique({
           where: {
@@ -60,7 +61,7 @@ export async function acceptInvite(app: FastifyInstance) {
               role: invite.role,
             },
           }),
-          prisma.member.delete({
+          prisma.invite.delete({
             where: {
               id: inviteId,
             },

@@ -11,15 +11,12 @@ export async function getPedendingInvite(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
-      '/pending-invtes',
+    .get(
+      '/pending-invites',
       {
         schema: {
           tags: ['Invites'],
           summary: 'Get pending invites',
-          params: z.object({
-            inviteId: z.string().uuid(),
-          }),
           200: z.object({
             invite: z.array(
               z.object({
